@@ -1,26 +1,34 @@
 import React, {Component} from 'react';
-import {Dictionaries} from '../../constants';
+import {Dictionaries} from '../../utils/constants';
+import PropTypes from "prop-types";
 
 class ShelfChanger extends Component {
 	
 	render() {
-		const bookStatus = Dictionaries.BOOK_STATUS_ACTION;
+		const bookShelves = Dictionaries.BOOK_STATUS;
 		
-		const bookStatusOptions = Object.keys(bookStatus).map((bookStatusKey, bookStatusIndex) => {
+		const bookShelvesOptions = Object.keys(bookShelves).map((bookShelfKey, bookShelfIndex) => {
 			return (
-				<option key={bookStatusIndex} value={bookStatus[bookStatusKey]} disabled={bookStatusIndex === 0}>
-					{bookStatusKey}
+				<option key={bookShelfIndex} value={bookShelfKey}>
+					{bookShelves[bookShelfKey]}
 				</option>
 			);
 		});
 		return (
 			<div className="book-shelf-changer">
-				<select>
-					{bookStatusOptions}
+				<select value={this.props.value} onChange={(e) => this.props.onChange(e.target.value)}>
+					<option value='move' disabled>Move to...</option>
+					{bookShelvesOptions}
+					<option value='-1'>None</option>
 				</select>
 			</div>
 		);
 	}
 }
+
+ShelfChanger.propTypes = {
+	value: PropTypes.string.isRequired,
+	onChange: PropTypes.func.isRequired,
+};
 
 export default ShelfChanger;
