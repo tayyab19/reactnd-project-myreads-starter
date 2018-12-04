@@ -9,15 +9,17 @@ class Home extends Component {
 		super(props);
 		
 		this.state = {
-			books: [],
-			bookShelves: [],
-			dataLoaded: false,
+			books: [],  // to store all books
+			bookShelves: [],    // to store books categorized by shelves
+			dataLoaded: false,  // flag to display the data when loaded
 		};
 	}
 	
 	componentDidMount() {
+		// fetching all books
 		BooksAPI.getAll().then((books) => {
 			const bookShelves = Object.keys(Dictionaries.BOOK_SHELVES).map(bookStatusKey => {
+				// filter books by book shelf
 				const currentShelfBooks = books.filter(book => book.shelf === bookStatusKey);
 				const shelfTitle = Dictionaries.BOOK_SHELVES[bookStatusKey];
 				return {title: shelfTitle, books: currentShelfBooks, bookShelf: bookStatusKey};
@@ -27,14 +29,17 @@ class Home extends Component {
 	}
 	
 	onStatusChange = (bookShelfIndex, bookIndex, value, oldValue) => {
+		// checking if the same option is selected again
 		if (value === oldValue) {
 			return;
 		}
 		let { books, bookShelves } = this.state;
 		let book = bookShelves[bookShelfIndex]['books'][bookIndex];
+		// updating the book status
 		BooksAPI.update(book, value).then(response => {
 			const bookShelves = Object.keys(response).map(bookStatusKey => {
 				let booksId = response[bookStatusKey];
+				// filtering the current shelf books to update the state
 				const currentShelfBooks = books.filter(book => booksId.includes(book.id));
 				const shelfTitle = Dictionaries.BOOK_SHELVES[bookStatusKey];
 				return {title: shelfTitle, books: currentShelfBooks, bookShelf: bookStatusKey};

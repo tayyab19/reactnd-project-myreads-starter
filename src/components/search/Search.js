@@ -9,13 +9,15 @@ class Search extends Component {
 		
 		this.state = {
 			query: '',
-			books: [],
-			shelvedBooks: []
+			books: [],  // to store books based on query search
+			shelvedBooks: []    // to store books which are in any shelf
 		};
 	}
 	
 	componentDidMount() {
+		// fetching all books
 		BooksAPI.getAll().then((books) => {
+			// saving shelf book id and shelf name to check book status
 			const shelvedBooks = books.map(book => { return {id: book.id, shelf: book.shelf} });
 			this.setState({shelvedBooks});
 		});
@@ -24,10 +26,16 @@ class Search extends Component {
 	onSearchSubmit = (e) => {
 		e.preventDefault();
 		const { query, shelvedBooks } = this.state;
+		
+		// check if query exists or not
 		if (query) {
 			BooksAPI.search(query).then((books) => {
+				// checking if books returned properly
 				if (Object.getPrototypeOf( books ) === Array.prototype) {
+					// filtering out the books without thumbnails
 					books = books.filter(book => book.imageLinks !== undefined);
+					
+					// updating the book shelf status based on shelved books
 					books = books.map(book => {
 						let shelfBookIndex = shelvedBooks.findIndex(shelfBook => shelfBook.id === book.id);
 						book.shelf = shelfBookIndex === -1 ? 'none': shelvedBooks[shelfBookIndex].shelf;
@@ -48,16 +56,22 @@ class Search extends Component {
 	onStatusChange = (value, bookIndex) => {
 		let {books, shelvedBooks} = this.state;
 		const book = books[bookIndex];
+		
+		// checking if the same option is selected again
 		if (book.shelf === value) {
 			return;
 		}
+		// updating the book status
 		BooksAPI.update(book, value).then(() => {
+			// check if new book added to shelf
 			if ('none' === book.shelf) {
 				shelvedBooks.push({id: book.id, shelf: value});
 			}
+			// check if book is deleted from every shelf
 			else if ('none' === value) {
 				shelvedBooks = shelvedBooks.filter(shelfBook => book.id !== shelfBook.id);
 			}
+			// check if book shelf is updated
 			else {
 				shelvedBooks.map(shelfBook => {
 					if (shelfBook.id === book.id) {
