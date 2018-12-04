@@ -17,7 +17,7 @@ class Book extends Component {
 						<BookActions value={bookShelf} onChange={this.props.onChange}/>
 					</div>
 					<div className="book-title">{title}</div>
-					<div className="book-authors">{authors.join(', ')}</div>
+					<div className="book-authors">{authors ? authors.join(', '): ''}</div>
 				</div>
 			</div>
 		);
@@ -27,7 +27,6 @@ class Book extends Component {
 Book.propTypes = {
 	title: PropTypes.string.isRequired,
 	bookShelf: PropTypes.string.isRequired,
-	authors: PropTypes.array.isRequired,
 	imageLinks: PropTypes.object.isRequired,
 	onChange: PropTypes.func.isRequired
 };
