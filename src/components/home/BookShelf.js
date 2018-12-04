@@ -14,7 +14,12 @@ class BookShelf extends Component {
 							books.map((book, bookIndex) => {
 								return (
 									<li key={bookIndex}>
-										<Book {...book} onChange={(value) => this.props.onChange(bookIndex, value)}/>
+										<Book
+											{...book}
+											onChange={
+												(value) => this.props.onChange(bookIndex, value, this.props.bookShelf)}
+											bookShelf={this.props.bookShelf}
+										/>
 									</li>
 								)
 							})
@@ -28,6 +33,7 @@ class BookShelf extends Component {
 
 BookShelf.propTypes = {
 	title: PropTypes.string.isRequired,
+	bookShelf: PropTypes.string.isRequired,
 	books: PropTypes.array.isRequired,
 	onChange: PropTypes.func.isRequired,
 };

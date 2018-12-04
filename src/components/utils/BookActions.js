@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {Dictionaries} from '../../utils/constants';
 import PropTypes from "prop-types";
 
-class ShelfChanger extends Component {
+class BookActions extends Component {
 	
 	render() {
-		const bookShelves = Dictionaries.BOOK_STATUS;
+		const bookShelves = Dictionaries.BOOK_ACTIONS;
 		
 		const bookShelvesOptions = Object.keys(bookShelves).map((bookShelfKey, bookShelfIndex) => {
 			return (
@@ -19,16 +19,15 @@ class ShelfChanger extends Component {
 				<select value={this.props.value} onChange={(e) => this.props.onChange(e.target.value)}>
 					<option value='move' disabled>Move to...</option>
 					{bookShelvesOptions}
-					<option value='-1'>None</option>
 				</select>
 			</div>
 		);
 	}
 }
 
-ShelfChanger.propTypes = {
+BookActions.propTypes = {
 	value: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
 };
 
-export default ShelfChanger;
+export default BookActions;

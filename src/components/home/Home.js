@@ -17,30 +17,27 @@ class Home extends Component {
 	
 	componentDidMount() {
 		BooksAPI.getAll().then((books) => {
-			const bookShelves = Object.keys(Dictionaries.BOOK_STATUS).map(bookStatusKey => {
+			const bookShelves = Object.keys(Dictionaries.BOOK_SHELVES).map(bookStatusKey => {
 				const currentShelfBooks = books.filter(book => book.shelf === bookStatusKey);
-				const shelfTitle = Dictionaries.BOOK_STATUS[bookStatusKey];
-				return {title: shelfTitle, books: currentShelfBooks};
+				const shelfTitle = Dictionaries.BOOK_SHELVES[bookStatusKey];
+				return {title: shelfTitle, books: currentShelfBooks, bookShelf: bookStatusKey};
 			});
 			this.setState({books, bookShelves, dataLoaded: true});
 		});
 	}
 	
-	onStatusChange = (bookShelfIndex, bookIndex, value) => {
-		if (value === '-1') {
+	onStatusChange = (bookShelfIndex, bookIndex, value, oldValue) => {
+		if (value === oldValue) {
 			return;
 		}
 		let { books, bookShelves } = this.state;
 		let book = bookShelves[bookShelfIndex]['books'][bookIndex];
-		if (value === book.shelf) {
-			return;
-		}
 		BooksAPI.update(book, value).then(response => {
 			const bookShelves = Object.keys(response).map(bookStatusKey => {
 				let booksId = response[bookStatusKey];
 				const currentShelfBooks = books.filter(book => booksId.includes(book.id));
-				const shelfTitle = Dictionaries.BOOK_STATUS[bookStatusKey];
-				return {title: shelfTitle, books: currentShelfBooks};
+				const shelfTitle = Dictionaries.BOOK_SHELVES[bookStatusKey];
+				return {title: shelfTitle, books: currentShelfBooks, bookShelf: bookStatusKey};
 			});
 			this.setState({bookShelves});
 		});
@@ -64,7 +61,8 @@ class Home extends Component {
 									key={bookShelfIndex}
 									{...bookShelf}
 									onChange={
-										(bookIndex, value) => this.onStatusChange(bookShelfIndex, bookIndex, value)}
+										(bookIndex, value, oldValue) => this.onStatusChange(
+											bookShelfIndex, bookIndex, value, oldValue)}
 								/>
 							)
 						})
