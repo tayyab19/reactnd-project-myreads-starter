@@ -4,11 +4,13 @@ import {Dictionaries} from '../../constants';
 class ShelfChanger extends Component {
 	
 	render() {
-		const bookStatus = Dictionaries.BOOK_STATUS;
+		const bookStatus = Dictionaries.BOOK_STATUS_ACTION;
 		
 		const bookStatusOptions = Object.keys(bookStatus).map((bookStatusKey, bookStatusIndex) => {
 			return (
-				<option key={bookStatusIndex} value={bookStatus[bookStatusKey]}>{bookStatusKey}</option>
+				<option key={bookStatusIndex} value={bookStatus[bookStatusKey]} disabled={bookStatusIndex === 0}>
+					{bookStatusKey}
+				</option>
 			);
 		});
 		return (

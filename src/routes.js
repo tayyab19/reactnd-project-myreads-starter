@@ -1,7 +1,6 @@
-import React from "react";
-import Home from "./components/home/Home";
-import Search from "./components/search/Search";
-import {Route} from "react-router-dom";
+import React from 'react';
+import {Home, Search} from './components';
+import {Route} from 'react-router-dom';
 
 export default (
 	<React.Fragment>

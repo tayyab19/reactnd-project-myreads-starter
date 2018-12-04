@@ -1,9 +1,35 @@
 import React, {Component} from 'react';
-import BookShelf from "./BookShelf";
-import {BOOK_SHELVES} from '../../constants';
+import BookShelf from './BookShelf';
+import {Dictionaries} from '../../constants';
+import * as BooksAPI from '../../utils/BooksAPI';
 
 class Home extends Component {
+	
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+			bookShelves: [],
+			dataLoaded: false,
+		};
+	}
+	
+	componentDidMount() {
+		BooksAPI.getAll().then((books) => {
+			const bookShelves = Object.keys(Dictionaries.BOOK_STATUS).map(bookStatusKey => {
+				const currentShelfBooks = books.filter(book => book.shelf === bookStatusKey);
+				const shelfTitle = Dictionaries.BOOK_STATUS[bookStatusKey];
+				return {title: shelfTitle, books: currentShelfBooks};
+			});
+			this.setState({bookShelves, dataLoaded: true});
+		});
+	}
+	
 	render() {
+		const {bookShelves, dataLoaded} = this.state;
+		if (!dataLoaded) {
+			return <div/>;
+		}
 		return (
 			<div className="list-books">
 				<div className="list-books-title">
@@ -11,7 +37,7 @@ class Home extends Component {
 				</div>
 				<div className="list-books-content">
 					{
-						BOOK_SHELVES.map((bookShelf, bookShelfIndex) => {
+						bookShelves.map((bookShelf, bookShelfIndex) => {
 							return (
 								<BookShelf {...bookShelf} key={bookShelfIndex}/>
 							)
