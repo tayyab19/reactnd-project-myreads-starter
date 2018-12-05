@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import {Dictionaries} from '../../utils/constants';
+import {BOOK_ACTIONS} from '../../utils/constants';
 import PropTypes from "prop-types";
 
 class BookActions extends Component {
 	
 	render() {
-		const bookShelves = Dictionaries.BOOK_ACTIONS;
+		const bookStatus = BOOK_ACTIONS;
 		
-		const bookShelvesOptions = Object.keys(bookShelves).map((bookShelfKey, bookShelfIndex) => {
+		const bookShelvesOptions = Object.keys(bookStatus).map((bookStatusKey, bookStatusIndex) => {
 			return (
-				<option key={bookShelfIndex} value={bookShelfKey}>
-					{bookShelves[bookShelfKey]}
+				<option key={bookStatusIndex} value={bookStatusKey}>
+					{bookStatus[bookStatusKey]}
 				</option>
 			);
 		});

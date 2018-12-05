@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import BookShelf from './BookShelf';
-import {Dictionaries} from '../../utils/constants';
+import {BOOK_SHELVES} from '../../utils/constants';
 import * as BooksAPI from '../../utils/BooksAPI';
 
 class Home extends Component {
@@ -18,10 +18,10 @@ class Home extends Component {
 	componentDidMount() {
 		// fetching all books
 		BooksAPI.getAll().then((books) => {
-			const bookShelves = Object.keys(Dictionaries.BOOK_SHELVES).map(bookStatusKey => {
+			const bookShelves = Object.keys(BOOK_SHELVES).map(bookStatusKey => {
 				// filter books by book shelf
 				const currentShelfBooks = books.filter(book => book.shelf === bookStatusKey);
-				const shelfTitle = Dictionaries.BOOK_SHELVES[bookStatusKey];
+				const shelfTitle = BOOK_SHELVES[bookStatusKey];
 				return {title: shelfTitle, books: currentShelfBooks, bookShelf: bookStatusKey};
 			});
 			this.setState({books, bookShelves, dataLoaded: true});
@@ -41,7 +41,7 @@ class Home extends Component {
 				let booksId = response[bookStatusKey];
 				// filtering the current shelf books to update the state
 				const currentShelfBooks = books.filter(book => booksId.includes(book.id));
-				const shelfTitle = Dictionaries.BOOK_SHELVES[bookStatusKey];
+				const shelfTitle = BOOK_SHELVES[bookStatusKey];
 				return {title: shelfTitle, books: currentShelfBooks, bookShelf: bookStatusKey};
 			});
 			this.setState({bookShelves});
