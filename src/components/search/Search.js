@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import * as BooksAPI from '../../utils/BooksAPI';
 import Book from '../utils/Book';
-import {SEARCH_TERMS} from '../../utils/constants';
+import {SEARCH_TERMS, URL} from '../../utils/constants';
 
 class Search extends Component {
 	
@@ -98,7 +98,7 @@ class Search extends Component {
 		return (
 			<div className="search-books">
 				<div className="search-books-bar">
-					<button className="close-search" onClick={() => this.props.history.push('/')}>
+					<button className="close-search" onClick={() => this.props.history.push(URL)}>
 						Close
 					</button>
 					<div className="search-books-input-wrapper">

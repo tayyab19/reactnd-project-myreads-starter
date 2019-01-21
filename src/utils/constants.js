@@ -20,3 +20,5 @@ export const SEARCH_TERMS = [
 	'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun',
 	'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'
 ];
+
+export const URL = '/my-reads';

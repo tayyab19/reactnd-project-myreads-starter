@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import BookShelf from './BookShelf';
-import {BOOK_SHELVES} from '../../utils/constants';
+import {BOOK_SHELVES, URL} from '../../utils/constants';
 import * as BooksAPI from '../../utils/BooksAPI';
 
 class Home extends Component {
@@ -74,7 +74,7 @@ class Home extends Component {
 					}
 				</div>
 				<div className="open-search">
-					<button onClick={() => this.props.history.push('/search')}>Add a book</button>
+					<button onClick={() => this.props.history.push(`${URL}/search`)}>Add a book</button>
 				</div>
 			</div>
 		);
