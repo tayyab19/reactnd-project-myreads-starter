@@ -2,15 +2,13 @@ import React from 'react'
 import './App.css'
 import routes from './routes';
 
-class BooksApp extends React.Component {
+const BooksApp = () => {
 	
-	render() {
-		return (
-			<div className="app">
-				{routes}
-			</div>
-		);
-	}
-}
+	return (
+		<div className="app">
+			{routes}
+		</div>
+	);
+};
 
 export default BooksApp

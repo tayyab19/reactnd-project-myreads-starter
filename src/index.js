@@ -11,9 +11,7 @@ class MainApp extends Component {
 	render() {
 		return (
 			<Router history={createBrowserHistory()}>
-				<Switch>
-					<App/>
-				</Switch>
+				<App/>
 			</Router>
 		);
 	}

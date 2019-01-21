@@ -17,7 +17,7 @@ class Search extends Component {
 	
 	componentDidMount() {
 		// fetching all books
-		BooksAPI.getAll().then((books) => {
+		BooksAPI.getAll().then(books => {
 			// saving shelf book id and shelf name to check book status
 			const shelvedBooks = books.map(book => {
 				return {id: book.id, shelf: book.shelf}
@@ -28,7 +28,7 @@ class Search extends Component {
 	
 	searchBooks = () => {
 		const {shelvedBooks, query} = this.state;
-		BooksAPI.search(query).then((books) => {
+		BooksAPI.search(query).then(books => {
 			// checking if books returned properly
 			if (Object.getPrototypeOf(books) === Array.prototype) {
 				// filtering out the books without thumbnails
@@ -47,11 +47,11 @@ class Search extends Component {
 		});
 	};
 	
-	isValidQuery = (query) => {
+	isValidQuery = query => {
 		return SEARCH_TERMS.filter(searchTerm => searchTerm.toLowerCase().includes(query.toLowerCase())).length > 0;
 	};
 	
-	onSearchChange = (query) => {
+	onSearchChange = query => {
 		// check if query length is greater than 2 or not and if query exist in search terms
 		if (query.length > 2 && this.isValidQuery(query)) {
 			this.setState({query}, this.searchBooks);
@@ -61,7 +61,8 @@ class Search extends Component {
 	};
 	
 	onStatusChange = (value, bookIndex) => {
-		let {books, shelvedBooks} = this.state;
+		const {books} = this.state;
+		let {shelvedBooks} = this.state;
 		const book = books[bookIndex];
 		
 		// checking if the same option is selected again

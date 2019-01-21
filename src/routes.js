@@ -1,10 +1,10 @@
 import React from 'react';
 import {Home, Search} from './components';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 
 export default (
-	<React.Fragment>
+	<Switch>
 		<Route exact path="/" component={Home}/>
 		<Route exact path="/search" component={Search}/>
-	</React.Fragment>
+	</Switch>
 );

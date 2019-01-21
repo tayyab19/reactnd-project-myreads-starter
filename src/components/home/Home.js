@@ -17,7 +17,7 @@ class Home extends Component {
 	
 	componentDidMount() {
 		// fetching all books
-		BooksAPI.getAll().then((books) => {
+		BooksAPI.getAll().then(books => {
 			const bookShelves = Object.keys(BOOK_SHELVES).map(bookStatusKey => {
 				// filter books by book shelf
 				const currentShelfBooks = books.filter(book => book.shelf === bookStatusKey);
@@ -33,12 +33,12 @@ class Home extends Component {
 		if (value === oldValue) {
 			return;
 		}
-		let { books, bookShelves } = this.state;
-		let book = bookShelves[bookShelfIndex]['books'][bookIndex];
+		const { books, bookShelves } = this.state;
+		const book = bookShelves[bookShelfIndex]['books'][bookIndex];
 		// updating the book status
 		BooksAPI.update(book, value).then(response => {
 			const bookShelves = Object.keys(response).map(bookStatusKey => {
-				let booksId = response[bookStatusKey];
+				const booksId = response[bookStatusKey];
 				// filtering the current shelf books to update the state
 				const currentShelfBooks = books.filter(book => booksId.includes(book.id));
 				const shelfTitle = BOOK_SHELVES[bookStatusKey];
