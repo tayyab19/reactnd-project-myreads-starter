@@ -20,7 +20,7 @@ const BookActions = props => {
 			</select>
 		</div>
 	);
-}
+};
 
 BookActions.propTypes = {
 	value: PropTypes.string.isRequired,

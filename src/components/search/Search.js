@@ -47,9 +47,8 @@ class Search extends Component {
 		});
 	};
 	
-	isValidQuery = query => {
-		return SEARCH_TERMS.filter(searchTerm => searchTerm.toLowerCase().includes(query.toLowerCase())).length > 0;
-	};
+	isValidQuery = query =>
+		SEARCH_TERMS.filter(searchTerm => searchTerm.toLowerCase().includes(query.toLowerCase())).length > 0;
 	
 	onSearchChange = query => {
 		// check if query length is greater than 2 or not and if query exist in search terms
