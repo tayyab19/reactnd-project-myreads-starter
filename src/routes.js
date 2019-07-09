@@ -4,8 +4,8 @@ import {Route, Switch} from 'react-router-dom';
 import {URL} from './utils/constants';
 
 export default (
-	<Switch>
-		<Route exact path={URL} component={Home}/>
-		<Route exact path={`${URL}/search`} component={Search}/>
-	</Switch>
+    <Switch>
+        <Route exact path={URL} component={Home}/>
+        <Route exact path={`${URL}/search`} component={Search}/>
+    </Switch>
 );
